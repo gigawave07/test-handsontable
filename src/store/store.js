@@ -9,7 +9,8 @@ const store = new Vue.observable({
     details: {
         model: '',
         price: undefined
-    }
+    },
+    ref: {}
 })
 
 export default store;

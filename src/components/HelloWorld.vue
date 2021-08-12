@@ -1,6 +1,6 @@
 <template>
     <div >
-        <div @click="handleClick"><hot-table :data="data" :settings="hotSettings"></hot-table></div>
+        <hot-table :data="data" :settings="hotSettings"></hot-table>
         <hot-table ref="details" :data="store.details" :settings="hotSettings2"></hot-table>
     </div>
 </template>
@@ -12,6 +12,9 @@
     export default {
         components: {
             HotTable,
+        },
+        mounted() {
+          store.ref = this.$refs.details
         },
         data: function () {
             return {
@@ -30,6 +33,7 @@
                         store.details = {
                             ...details
                         }
+                        store.ref.hotInstance.loadData([JSON.parse(JSON.stringify(store.details))[0]])
                     },
                     licenseKey: 'non-commercial-and-evaluation'
                 },
@@ -43,11 +47,6 @@
                     licenseKey: 'non-commercial-and-evaluation'
                 },
             };
-        },
-        methods: {
-            handleClick() {
-                this.$refs.details.hotInstance.loadData([JSON.parse(JSON.stringify(this.store.details))[0]])
-            }
         }
     }
 </script>
